@@ -60,7 +60,12 @@ module PapertrailLogAnalyzer
       query_options = {}
 
       query_results = PapertrailLogAnalyzer::query(ARGV[0], options, query_options)
-      display_results(PapertrailLogAnalyzer::LogParser.parse(query_results.events))
+
+      if query_results.events.size > 0
+        display_results(PapertrailLogAnalyzer::LogParser.parse(query_results.events))
+      else
+        puts "No events found"
+      end
     end
 
     def display_results(results)
